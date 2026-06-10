@@ -65,3 +65,28 @@ with col2:
         title="Internships vs Salary"
     )
     st.plotly_chart(fig, use_container_width=True)
+    col1.metric("Students", len(df))
+col2.metric("Placement Rate", f"{placement_rate:.1f}%")
+col3.metric("Average Salary", f"{df['Salary_LPA'].mean():.2f} LPA")
+col4.metric("Highest Salary", f"{df['Salary_LPA'].max():.2f} LPA")
+
+col5.metric("Average CGPA", round(df["CGPA"].mean(),2))
+col6.metric("Average Internships", round(df["Internships"].mean(),2))
+st.sidebar.header("Filters")
+
+tier = st.sidebar.multiselect(
+    "College Tier",
+    df["College_Tier"].unique(),
+    default=df["College_Tier"].unique()
+)
+
+spec = st.sidebar.multiselect(
+    "Specialization",
+    df["Specialization"].unique(),
+    default=df["Specialization"].unique()
+)
+
+filtered_df = df[
+    (df["College_Tier"].isin(tier)) &
+    (df["Specialization"].isin(spec))
+]
