@@ -22,3 +22,46 @@ col1.metric("Students", len(df))
 col2.metric("Placement Rate", f"{placement_rate:.1f}%")
 col3.metric("Average Salary", f"{df['Salary_LPA'].mean():.2f} LPA")
 col4.metric("Highest Salary", f"{df['Salary_LPA'].max():.2f} LPA")
+import plotly.express as px
+
+st.markdown("---")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    fig = px.histogram(
+        df,
+        x="CGPA",
+        nbins=20,
+        title="CGPA Distribution"
+    )
+    st.plotly_chart(fig, use_container_width=True)
+
+with col2:
+    fig = px.histogram(
+        df,
+        x="Salary_LPA",
+        nbins=20,
+        title="Salary Distribution"
+    )
+    st.plotly_chart(fig, use_container_width=True)
+    col1, col2 = st.columns(2)
+
+with col1:
+    fig = px.box(
+        df,
+        x="Placement_Status",
+        y="CGPA",
+        title="CGPA vs Placement"
+    )
+    st.plotly_chart(fig, use_container_width=True)
+
+with col2:
+    fig = px.scatter(
+        df,
+        x="Internships",
+        y="Salary_LPA",
+        color="Placement_Status",
+        title="Internships vs Salary"
+    )
+    st.plotly_chart(fig, use_container_width=True)
