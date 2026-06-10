@@ -16,3 +16,13 @@ col3.metric("Average Salary",
 
 col4.metric("Highest Salary",
             round(df["Salary_LPA"].max(),2))
+placement_rate = (
+    (df["Placement_Status"] == "Placed").mean() * 100
+)
+
+col1, col2, col3, col4 = st.columns(4)
+
+col1.metric("Students", len(df))
+col2.metric("Placement Rate", f"{placement_rate:.1f}%")
+col3.metric("Average Salary", f"{df['Salary_LPA'].mean():.2f} LPA")
+col4.metric("Highest Salary", f"{df['Salary_LPA'].max():.2f} LPA")
